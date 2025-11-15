@@ -1,0 +1,39 @@
+# Core data packages
+pandas>=2.0.0
+numpy>=1.21.0
+scikit-learn>=1.3.0
+
+# Gradient boosting models
+xgboost
+lightgbm
+
+# Visualization
+matplotlib
+seaborn
+
+# Utilities
+pyyaml
+joblib
+
+# API / Deployment
+fastapi
+uvicorn
+pydantic
+python-multipart
+
+# ML Ops (optional - remove if not using)
+mlflow
+
+# Testing
+pytest
+
+# Notebooks (WSL)
+notebook
+jupyterlab
+ipywidgets
+
+# Explainability
+shap
+
+# Hyperparameter tuning
+optuna

@@ -1,0 +1,30 @@
+Metadata-Version: 2.4
+Name: credit_scoring
+Version: 0.1.0
+Summary: ML-based credit scoring system using M-Pesa transaction data
+Author: Your Name
+Author-email: your.email@example.com
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: scikit-learn>=1.3.0
+Requires-Dist: xgboost
+Requires-Dist: lightgbm
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: pyyaml
+Requires-Dist: joblib
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: pydantic
+Requires-Dist: python-multipart
+Requires-Dist: mlflow
+Requires-Dist: pytest
+Requires-Dist: notebook
+Requires-Dist: jupyterlab
+Requires-Dist: ipywidgets
+Requires-Dist: shap
+Requires-Dist: optuna
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: summary
