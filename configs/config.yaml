@@ -1,0 +1,107 @@
+# Credit Scoring Project Configuration
+
+project:
+  name: "credit_scoring"
+  version: "1.0.0"
+  description: "ML-based credit scoring using M-Pesa transaction data"
+
+data:
+  raw_data_path: "data/raw/"
+  processed_data_path: "data/processed/"
+  
+  # Input files
+  demographics_file: "demographics.csv"
+  financial_history_file: "financial_history.csv"
+  transactions_file: "transactions.csv"
+  
+  # Output file
+  ml_data_file: "ml_training_data.csv"
+
+features:
+  # Feature groups
+  income:
+    - monthly_avg_income
+    - income_volatility_cv
+    - income_trend_6months
+    - num_income_sources
+  
+  cashflow:
+    - monthly_net_cashflow
+    - months_negative_cashflow
+    - balance_min
+    - months_balance_below_500
+  
+  debt:
+    - fuliza_frequency
+    - fuliza_repayment_rate
+    - debt_to_income_ratio
+    - avg_fuliza_amount
+  
+  behavioral:
+    - transaction_frequency
+    - savings_rate
+    - expense_consistency_cv
+  
+  demographics:
+    - age
+    - years_employed
+    - education_level_encoded
+  
+  financial_history:
+    - account_age_months
+    - past_defaults_count
+    - past_repaid_loans
+    - credit_score
+    - overdraft_history
+
+model:
+  model_dir: "models/"
+  test_size: 0.2
+  validation_size: 0.1
+  random_state: 42
+  cv_folds: 5
+
+training:
+  models_to_train:
+    - logistic_regression
+    - random_forest
+    - xgboost
+    - lightgbm
+  
+  metric: "f1"  
+  handle_imbalance: true  # Use SMOTE or class weights
+  
+  # Model hyperparameters
+  hyperparameters:
+    logistic_regression:
+      C: [0.1, 1.0, 10.0]
+      max_iter: 1000
+    
+    random_forest:
+      n_estimators: [100, 200]
+      max_depth: [10, 20, None]
+      min_samples_split: [2, 5]
+    
+    xgboost:
+      n_estimators: [100, 200]
+      max_depth: [3, 5, 7]
+      learning_rate: [0.01, 0.1]
+      subsample: [0.8, 1.0]
+    
+    lightgbm:
+      n_estimators: [100, 200]
+      max_depth: [3, 5, 7]
+      learning_rate: [0.01, 0.1]
+      num_leaves: [31, 50]
+
+mlflow:
+  tracking_uri: "mlruns"
+  experiment_name: "credit_scoring_experiments"
+  artifact_location: "mlruns"
+
+api:
+  title: "Credit Scoring API"
+  description: "API for predicting loan default risk based on M-Pesa transaction data"
+  version: "1.0.0"
+  host: "0.0.0.0"
+  port: 8000
