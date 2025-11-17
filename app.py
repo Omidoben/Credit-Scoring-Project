@@ -9,6 +9,9 @@ Version: 1.0.0
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+import os
 from pydantic import BaseModel, Field, validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -45,6 +48,12 @@ app.add_middleware(
 # Global prediction pipeline
 prediction_pipeline: Optional[PredictPipeline] = None
 
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+async def serve_frontend():
+    """Serve the frontend HTML"""
+    html_path = os.path.join("templates", "index.html")
+    with open(html_path, 'r') as f:
+        return HTMLResponse(content=f.read())
 
 # PYDANTIC MODELS (Request/Response Schemas)
 
@@ -203,7 +212,6 @@ class ErrorResponse(BaseModel):
     error: str
     detail: Optional[str] = None
     timestamp: str
-
 
 # Startup & Shutdown events
 
