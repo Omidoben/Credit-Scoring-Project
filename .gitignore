@@ -205,3 +205,45 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ============================================================================
+# PROJECT SPECIFIC - Credit Scoring ML
+# ============================================================================
+
+# Data files (raw data can be large)
+data/raw/*.csv
+data/raw/*.xlsx
+data/raw/*.json
+data/processed/*.csv
+
+# Keep data directory structure but ignore contents
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Models (trained models can be large)
+#models/*.pkl
+#models/*.h5
+#models/*.joblib
+#models/*.sav
+
+# Keep model metadata and comparison reports
+!models/*_metadata.json
+!models/model_comparison.csv
+
+# Logs (keep logs directory but ignore log files)
+logs/*.log
+
+# Notebooks checkpoints and outputs
+#notebooks/.ipynb_checkpoints/
+#notebooks/*_files/
+
+# Template files (if they contain sensitive data)
+# templates/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# OS specific
+.DS_Store
+Thumbs.db
