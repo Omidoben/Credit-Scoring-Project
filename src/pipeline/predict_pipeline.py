@@ -142,9 +142,21 @@ class PredictPipeline:
             
             # One-hot encode employment type
             employment_type = demographics.get("employment_type", "Self-employed")
-            all_features["employment_Salaried"] = 1 if employment_type == "Salaried" else 0
-            all_features["employment_Self-employed"] = 1 if employment_type == "Self-employed" else 0
-            all_features["employment_Student/Other"] = 1 if employment_type == "Student/Other" else 0
+            # Initialize all employment columns to 0
+            all_features['employment_Informal'] = 0
+            all_features['employment_Salaried'] = 0
+            all_features['employment_Self-employed'] = 0
+            all_features['employment_Student/Other'] = 0
+            
+            # Set the appropriate one to 1
+            if employment_type == 'Informal':
+                all_features['employment_Informal'] = 1
+            elif employment_type == 'Salaried':
+                all_features['employment_Salaried'] = 1
+            elif employment_type == 'Self-employed':
+                all_features['employment_Self-employed'] = 1
+            elif employment_type == 'Student/Other':
+                all_features['employment_Student/Other'] = 1
             
             # Add financial history
             financial_history = applicant_data["financial_history"]
@@ -215,28 +227,57 @@ class PredictPipeline:
             Dict: Prediction results
         """
         try:
-            # Create feature vector in correct order
-            feature_vector = [features.get(col, 0) for col in self.feature_columns]
-            feature_array = np.array(feature_vector).reshape(1, -1)
+            # Create feature vector in correct order, handle missing values properly
+            feature_vector = []
+            for col in self.feature_columns:
+                value = features.get(col)
+                
+                # Handle None/missing values
+                if value is None:
+                    # Default values based on column type
+                    if col == 'credit_score':
+                        value = 650  # Median credit score
+                    elif 'employment_' in col:
+                        value = 0  # One-hot encoded features default to 0
+                    else:
+                        value = 0  # Numeric features default to 0
+                
+                feature_vector.append(value)
+            
+            # DEBUG: Check for NaN values
+            import pandas as pd
+            import numpy as np
+            
+            feature_df = pd.DataFrame([feature_vector], columns=self.feature_columns)
+            
+            # Print columns with NaN
+            nan_cols = feature_df.columns[feature_df.isna().any()].tolist()
+            if nan_cols:
+                logger.error(f"Features with NaN: {nan_cols}")
+                logger.error(f"Feature values: {dict(zip(self.feature_columns, feature_vector))}")
+                
+                # Fill NaN with 0
+                feature_df = feature_df.fillna(0)
+                logger.warning("Filled NaN values with 0")
             
             # Scale features
-            features_scaled = self.scaler.transform(feature_array)
+            features_scaled = self.scaler.transform(feature_df)
             
             # Make prediction
             prediction = self.model.predict(features_scaled)[0]
             probabilities = self.model.predict_proba(features_scaled)[0]
             
             # Interpret results
-            prediction_label = "Repaid" if prediction == 1 else "Default"
+            prediction_label = 'Repaid' if prediction == 1 else 'Default'
             risk_level = self._assess_risk_level(probabilities[1])
             
             result = {
-                "prediction": int(prediction),
-                "prediction_label": prediction_label,
-                "probability_default": float(probabilities[0]),
-                "probability_repay": float(probabilities[1]),
-                "risk_level": risk_level,
-                "recommendation": self._get_recommendation(prediction, probabilities[1])
+                'prediction': int(prediction),
+                'prediction_label': prediction_label,
+                'probability_default': float(probabilities[0]),
+                'probability_repay': float(probabilities[1]),
+                'risk_level': risk_level,
+                'recommendation': self._get_recommendation(prediction, probabilities[1])
             }
             
             return result
@@ -375,7 +416,7 @@ if __name__ == "__main__":
         
         # Load sample applicant data
         data_ingestion = DataIngestion()
-        applicant_data = data_ingestion.get_applicant_data(applicant_id=1)
+        applicant_data = data_ingestion.get_applicant_data(applicant_id=432)
         
         # Make prediction
         print("\nmaking prediction for applicant 1...")
