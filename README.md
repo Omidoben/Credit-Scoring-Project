@@ -2,7 +2,7 @@
 
 A complete end-to-end ML system that predicts loan default risk using M-Pesa mobile money transaction patterns. The project includes synthetic data generation, feature engineering, model training with comparison, and production-ready API deployment.
 
-** Live Demo:** [https://credit-scoring-0jwt.onrender.com](https://your-deployment-url.onrender.com)
+** Live Demo:**[https://credit-scoring-0jwt.onrender.com](https://your-deployment-url.onrender.com)
 
 ---
 
@@ -30,7 +30,7 @@ In Kenya and similar markets, millions lack traditional credit history but have 
 | **Validation** | Pydantic |
 | **Config** | YAML |
 | **Deployment** | Render |
-| **Others** | Joblib (persistence), Custom logging & exceptions |
+| **Others** | Joblib, Custom logging & exceptions |
 
 ---
 
@@ -95,7 +95,7 @@ Trained 4 models with cross-validation:
 
 ```bash
 # Clone repository
-git clone <your-repo-url>
+git clone <repo-url>
 cd credit-scoring
 
 # Create virtual environment
