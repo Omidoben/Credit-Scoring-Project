@@ -1,12 +1,12 @@
-# 🏦 Credit Scoring System: M-Pesa Transaction-Based Loan Assessment
+# Credit Scoring System: M-Pesa Transaction-Based Loan Assessment
 
 A complete end-to-end ML system that predicts loan default risk using M-Pesa mobile money transaction patterns. The project includes synthetic data generation, feature engineering, model training with comparison, and production-ready API deployment.
 
-**🔗 Live Demo:** [https://credit-scoring-0jwt.onrender.com](https://your-deployment-url.onrender.com)
+** Live Demo:** [https://credit-scoring-0jwt.onrender.com](https://your-deployment-url.onrender.com)
 
 ---
 
-## 📊 Project Overview
+## Project Overview
 
 This system predicts whether a loan applicant will repay or default based on:
 - **M-Pesa transaction patterns** (income, expenses, Fuliza usage)
@@ -20,7 +20,7 @@ In Kenya and similar markets, millions lack traditional credit history but have 
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 | Category | Tools |
 |----------|-------|
@@ -34,7 +34,7 @@ In Kenya and similar markets, millions lack traditional credit history but have 
 
 ---
 
-## 🎯 Key Features
+## Key Features
 
 ### 1. Synthetic Data Generation
 Since real M-Pesa data is unavailable, we generated realistic transaction patterns:
@@ -55,12 +55,10 @@ Trained 4 models with cross-validation:
 
 | Model | Test Accuracy | Test F1 | Test ROC-AUC |
 |-------|---------------|---------|--------------|
-| **LightGBM** ⭐ | **96.0%** | **97.3%** | **99.3%** |
+| **LightGBM**  | **96.0%** | **97.3%** | **99.3%** |
 | XGBoost | 96.0% | 97.3% | 99.0% |
 | Logistic Regression | 95.0% | 96.6% | 98.4% |
 | Random Forest | 95.0% | 96.6% | 98.3% |
-
-**Winner: LightGBM** - Best F1 and ROC-AUC, minimal overfitting
 
 ### 4. Production API
 - **FastAPI** with automatic validation (Pydantic)
@@ -70,7 +68,7 @@ Trained 4 models with cross-validation:
 
 ---
 
-## 🧠 ML Pipeline Workflow
+## ML Pipeline Workflow
 
 ```
 1. Data Generation → synthetic_data/
@@ -91,9 +89,9 @@ Trained 4 models with cross-validation:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 1️⃣ Setup Environment
+### Setup Environment
 
 ```bash
 # Clone repository
@@ -111,7 +109,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### 2️⃣ Train Model
+### Train Model
 
 ```bash
 # Run training pipeline
@@ -131,7 +129,7 @@ python -m src.pipeline.train_pipeline
 
 **Training time:** ~2-3 minutes for 1,000 applicants
 
-### 3️⃣ Make Predictions
+### Make Predictions
 
 **Option A: Command-line**
 ```bash
@@ -150,7 +148,7 @@ Then visit:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 credit-scoring/
@@ -203,7 +201,7 @@ credit-scoring/
 
 ---
 
-## 📊 Models Compared
+## Models Compared
 
 ### Training Configuration
 - **Dataset:** 1,000 applicants (800 train, 200 test)
@@ -230,7 +228,7 @@ credit-scoring/
 
 ---
 
-## 🎯 Feature Groups
+## Feature Groups
 
 ### Transaction Features (15)
 **Income (4 features):**
@@ -271,7 +269,7 @@ credit-scoring/
 
 ---
 
-## 🌐 API Endpoints
+## API Endpoints
 
 ### 1. Health Check
 ```bash
@@ -372,7 +370,7 @@ For production, set:
 
 ---
 
-## 📈 Sample Results
+## Sample Results
 
 ### Example Prediction: Low-Risk Applicant
 ```
@@ -408,7 +406,7 @@ python app.py
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
@@ -420,7 +418,7 @@ This project is licensed under the MIT License.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Inspired by M-Pesa's impact on financial inclusion in Kenya
 - Built as a demonstration of end-to-end ML engineering
